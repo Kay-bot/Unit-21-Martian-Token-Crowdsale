@@ -8,6 +8,7 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/contracts/crowdsale/distribution/RefundablePostDeliveryCrowdsale.sol";
 
 
+
 contract KaseiCoinCrowdsale is Crowdsale, MintedCrowdsale, CappedCrowdsale, TimedCrowdsale, RefundablePostDeliveryCrowdsale {
     constructor(
         uint256 rate, // rate in TKNbits
@@ -37,7 +38,6 @@ contract KaseiCoinCrowdsaleDeployer {
         uint256 rate,
         uint256 openingTime,
         uint256 closingTime,
-        uint256 cap,
         uint256 goal
     ) public {
         // Create a new instance of the KaseiCoin contract.
@@ -47,7 +47,7 @@ contract KaseiCoinCrowdsaleDeployer {
         kasei_token_address = address(token);
 
         // Create a new instance of the `KaseiCoinCrowdsale` contract
-        KaseiCoinCrowdsale kasei_crowdsale = new KaseiCoinCrowdsale (1, wallet, token, goal, now, now + 24 weeks);
+        KaseiCoinCrowdsale kasei_crowdsale = new KaseiCoinCrowdsale(rate, wallet, token, goal, openingTime, closingTime);
 
         // Assign the `KaseiCoinCrowdsale` contract’s address to the `kasei_crowdsale_address` variable.
         kasei_crowdsale_address = address(kasei_crowdsale);
